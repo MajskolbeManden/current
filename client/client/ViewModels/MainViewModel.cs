@@ -45,7 +45,8 @@ namespace client.ViewModels
 
         private void chatservice_OnMessageReceived(object sender, ChatMessage e)
         {
-            ChatList.Add(new ChatMessage { LineOne = e.LineOne });
+            Device.BeginInvokeOnMainThread(()=>
+            ChatList.Add(new ChatMessage { LineOne = e.LineOne }));
         }
 
         #region Property of datatype PropertyChangedEventHandler
