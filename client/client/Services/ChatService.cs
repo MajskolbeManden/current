@@ -20,31 +20,36 @@ namespace client.Services
         public ChatService()
         {
             
-            connection = new HubConnection("http://sameh.webdesk-dev.dk/chat.html");
+            connection = new HubConnection("http://sameh.webdesk-dev.dk/");
             proxy = connection.CreateHubProxy("chat");
             
         }
 
         public async Task Connect()
         {
-            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
-            await connection.Start().ContinueWith(task =>
-            {
-                var ex = task.Exception.InnerExceptions[0];
-                App.ViewModel.ChatList.Add(new ChatMessage { LineOne = ex.Message });
-            },
-                CancellationToken.None,
-                TaskContinuationOptions.OnlyOnFaulted,
-                scheduler);
+            //var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            //await connection.Start().ContinueWith(task =>
+            //{
+            //    var ex = task.Exception.InnerExceptions[0];
+            //    App.ViewModel.ChatList.Add(new ChatMessage { LineOne = ex.Message });
+            //},
+            //    CancellationToken.None,
+            //    TaskContinuationOptions.OnlyOnFaulted,
+            //    scheduler);
+
 
             //var dialog = new MessageDialog();
-            
-            proxy.On<string>("newMessage", msg =>
+            await connection.Start();
+            proxy.On("newMessage", (string lineOne) => OnMessageReceived(this, new ChatMessage
             {
-                ChatMessage tmp = new ChatMessage();
-                tmp.LineOne += string.Format(msg);
-                App.ViewModel.ChatList.Add(tmp);
-            });
+                LineOne = lineOne
+            }));
+            //proxy.On<string>("newMessage", msg =>
+            //{
+            //    ChatMessage tmp = new ChatMessage();
+            //    tmp.LineOne += string.Format(msg);
+            //    App.ViewModel.ChatList.Add(tmp);
+            //});
         }
 
         public Task Send()
