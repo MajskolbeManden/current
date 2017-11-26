@@ -32,7 +32,7 @@ namespace client.ViewModels
         public MainViewModel()
         {
             
-            cm = new ChatMessage();
+            Cm = new ChatMessage();
             ChatList = new ObservableCollection<ChatMessage>();
             ChatList.Add(new ChatMessage { LineOne = "grete" });
             ChatList.Add(new ChatMessage { LineOne = "grete" });
@@ -41,6 +41,7 @@ namespace client.ViewModels
             ChatList.Add(new ChatMessage { LineOne = "faggot" });
             chatservice.Connect();
             chatservice.OnMessageReceived += chatservice_OnMessageReceived;
+            SendMessageCommand = new RelayCommand(ExecuteSendMessageCommand);
         }
 
         private void chatservice_OnMessageReceived(object sender, ChatMessage e)
@@ -60,6 +61,25 @@ namespace client.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        #endregion
+
+        #region send text messages
+        //Command sendMessageCommand;
+        //public Command SendMessageCommand
+        //{
+        //    get
+        //    {
+        //        return sendMessageCommand ??
+        //        (sendMessageCommand = new Command(ExecuteSendMessageCommand));
+        //    }
+        //}
+        public RelayCommand SendMessageCommand { get; set; }
+        async void ExecuteSendMessageCommand()
+        {
+
+            await chatservice.Send(new ChatMessage { LineTwo = Cm.LineTwo });
+            
+        }
         #endregion
     }
 }

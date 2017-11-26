@@ -60,5 +60,10 @@ namespace client
             //    TaskContinuationOptions.OnlyOnFaulted,
             //    scheduler);
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }

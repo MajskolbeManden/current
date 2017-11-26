@@ -10,7 +10,7 @@ namespace client.Services
     interface IChatService
     {
         Task Connect();
-        Task Send();
         event EventHandler<ChatMessage> OnMessageReceived;
+        Task Send(ChatMessage message);
     }
 }
