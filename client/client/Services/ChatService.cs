@@ -27,17 +27,16 @@ namespace client.Services
 
         public async Task Connect()
         {
-            //var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
-            //await connection.Start().ContinueWith(task =>
-            //{
-            //    var ex = task.Exception.InnerExceptions[0];
-            //    App.ViewModel.ChatList.Add(new ChatMessage { LineOne = ex.Message });
-            //},
-            //    CancellationToken.None,
-            //    TaskContinuationOptions.OnlyOnFaulted,
-            //    scheduler);
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            await connection.Start().ContinueWith(task =>
+            {
+                var ex = task.Exception.InnerExceptions[0];
+                App.ViewModel.ChatList.Add(new ChatMessage { LineOne = ex.Message });
+            },
+                CancellationToken.None,
+                TaskContinuationOptions.OnlyOnFaulted,
+                scheduler);
 
-            await connection.Start();
             //var dialog = new MessageDialog();
             
             proxy.On<string>("newMessage", msg =>
