@@ -64,15 +64,7 @@ namespace client.ViewModels
         #endregion
 
         #region send text messages
-        //Command sendMessageCommand;
-        //public Command SendMessageCommand
-        //{
-        //    get
-        //    {
-        //        return sendMessageCommand ??
-        //        (sendMessageCommand = new Command(ExecuteSendMessageCommand));
-        //    }
-        //}
+        
         public RelayCommand SendMessageCommand { get; set; }
         async void ExecuteSendMessageCommand()
         {

@@ -29,7 +29,7 @@
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
-    <Entry Placeholder="skriv besked" BindingContext="{Binding LineTwo}" Grid.Column="0" Grid.Row="1"/>
+    <Entry Placeholder="skriv besked" Text="{Binding Cm.LineTwo}" Grid.Column="0" Grid.Row="1"/>
         <Button Command="{Binding SendMessageCommand}" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 
