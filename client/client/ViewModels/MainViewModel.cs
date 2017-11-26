@@ -39,9 +39,6 @@ namespace client.ViewModels
             ChatList.Add(new ChatMessage { LineOne = "nigger" });
             ChatList.Add(new ChatMessage { LineOne = "fugg:DD" });
             ChatList.Add(new ChatMessage { LineOne = "faggot" });
-            ChatList.Add(new ChatMessage { LineOne = chatservice.Connection.State.ToString() });
-
-            
             chatservice.Connect();
             chatservice.OnMessageReceived += chatservice_OnMessageReceived;
         }
